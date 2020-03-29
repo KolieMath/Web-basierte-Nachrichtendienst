@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div th:fragment="headline (txt)">
+    <div class="container">
+        <br>
+        <header>
+            <h5 class="text-center">
+                hi <span th:if="${fromUser != null}" th:text="${fromUser}"></span>
+                :: <span th:if="${txt != null}" th:text="${txt}"></span>
+            </h5>
+        </header>
+        <br>
+    </div>
+</div>
+
+<div th:fragment="nav (all)">
+    <div class="container">
+        <nav class="navbar navbar-expand-md navbar-light bg-light">
+            <a class="navbar-brand p-1 mr-5">EvaChatApp</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#thenavbarDefault" aria-controls="thenavbarDefault"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse " id="thenavbarDefault">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item navbar-nav p-1" th:if="${all != true}">
+                        <form th:action="@{/start?from=marga}" method="post">
+                            <input type="submit" class="btn btn-outline-dark"
+                                   th:value="fertig">
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <br>
+</div>
+
+<div th:fragment="greeting (all)">
+    <div class="container">
+        <h5>
+            hi <span th:if="${fromUser != null}" th:text="${fromUser}">unbekannte
+					/ unbekannter</span>
+        </h5>
+        <div>was kann ich fuer dich tun ?</div>
+        <br>
+    </div>
+</div>
+
+</body>
+
+</html>
+

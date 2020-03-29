@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <head th:include="fragments/header :: head">
+    </head>
+
+<body>
+<div
+        th:include="fragments/body :: headline (txt='viel spass beim chatten !!!' )"></div>
+<div th:include="fragments/body :: nav (all=false)"></div>
+
+<div class="container">
+    <h5>
+        <span th:text="${'quatschen mit ' +  toUser}">PLACEHOLDER</span>
+    </h5>
+    <table th:if="${listAllPosts != null}"
+           class="table table-hover table-bordered table-fixed">
+        <thead>
+        <tr>
+            <th scope="col">post &nbsp; <i
+                    class="fas fa-arrow-circle-right"></i>
+            </th>
+            <th scope="col">post &nbsp;<i class="fas fa-arrow-circle-left"></i></th>
+            <th scope="col">zeit</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="post : ${listAllPosts}">
+            <td th:if="${post.type.equals('out')}" class="word-wrap"
+                th:text="${post.content}">nix</td>
+            <td></td>
+            <td th:if="${post.type.equals('in')}" class="word-wrap"
+                th:text="${post.content}">nix</td>
+            <td th:text="${post.timestamp}">nix</td>
+        </tr>
+        </tbody>
+    </table>
+    <h5>dein post</h5>
+    <form th:action="@{/add(from=${fromUser},to=${toUser}) }"
+          method="post">
+        <input class="form-control" type="text" name="pcontent" minlength="1"
+               maxlength="255"> <br> <input type="submit"
+                                            class="btn btn-outline-primary btn-sm" value="dein posting">
+    </form>
+</div>
+<br>
+<div th:include="fragments/footer :: footer"></div>
+</body>
+</html>

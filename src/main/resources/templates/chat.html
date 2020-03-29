@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <head th:include="fragments/header :: head">
+    </head>
+
+<body>
+
+<div th:include="fragments/body :: headline (txt='nun kannst du loslegen !!!' )"></div>
+<!-- 	<div th:include="fragments/body :: nav (all=true)"></div> -->
+
+<section class="container">
+    <div class="section-title h5">deine chats mit</div>
+
+    <br>
+    <table class="table table-hover table-bordered table-sm"
+           th:if="${listAllChats != null}">
+        <thead class="thead-light">
+        <tr>
+            <th scope="col">deine chats</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="chat : ${listAllChats}">
+            <td>
+                <div th:name="modelAttr">
+                    <span th:text="${chat.chatWith}"></span>
+                    <span
+                            th:if="${chat.newPosts > 0}" class="label label-primary"
+                            th:text="${chat.newPosts}">
+						NEW</span>
+                </div>
+            </td>
+            <td>
+                <form th:action="@{/posts(from=${fromUser},to=${chat.chatWith}) }" method="post">
+                    <input type="submit" class="btn btn-outline-primary btn-sm" value="quatschen mit">
+                </form>
+            </td>
+            <td>
+                <form th:action="@{/deleteChat(from=${fromUser},to=${chat.chatWith}) }" method="post">
+                    <input type="submit" class="btn btn-outline-danger btn-sm" value="löschen">
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</section>
+
+<br>
+<div th:include="fragments/footer :: footer"></div>
+
+</body>
+</html>
